@@ -15,3 +15,6 @@
     * taskTemplate Objekt anlegen mit den Eigenschaften
         * id (Standardwert 0)
         * title (Standardwert leerer String)
+    * Eine Funktion getTaskFromUser anlegen
+    * Eine Funktion addTaskToDOM anlegen, die einen Task übergeben bekommt
+    * Im tasks Array über forEach einzelne task Element mit addTaskToDom zuweisen
