@@ -31,3 +31,9 @@
 addTaskToDOM() fügt dem section#tasks Element für jede Aufgabe einen neuen Absatz im folgenden Format hinzu:
 
 `<id>) <title>`
+
+### Übung 04
+1. Erstellen einer Konstruktorfunktion für Task
+2. taskTemplate wird nicht mehr benötigt und kann entfernt werden
+3. Konstruktorfunktion stattdessen einsetzen
+4. tasks-Array und Funktionen "typsicherer" über JavaDoc Kommentare machen
