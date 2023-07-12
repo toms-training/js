@@ -20,7 +20,14 @@ function getTaskFromUser() {
 }
 
 function addTaskToDOM(task) {
-    console.log(task);
+    const section = document.getElementById(taskSectionId);
+    const paragraph = document.createElement('p');
+
+    paragraph.innerText = `${task.id}) ${task.title}`;
+
+    if (!section) throw new Error(`Element mit der ID ${taskSectionId} nicht gefunden`);
+
+    section.appendChild(paragraph);
 }
 
 let newTask = getTaskFromUser();
