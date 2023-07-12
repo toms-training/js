@@ -19,10 +19,15 @@
     * Eine Funktion addTaskToDOM anlegen, die einen Task übergeben bekommt
     * Im tasks Array über forEach einzelne task Element mit addTaskToDom zuweisen
 
-### Übung 2
+### Übung 02
 1. getTaskFromUser()
     * Über einen prompt() nach dem Titel der Aufgabe fragen
     * Wird kein Titel eingegeben: null zurückgeben
     * Mit dem Titel ein neues Objekt basierend auf dem taskTemplate erstellen
     * Erstellten task zurückgeben
     * In einer Schleife so lange abfragen tasks-Array füllen, bis die Funktion nichts mehr zurückgibt
+
+### Übung 03
+addTaskToDOM() fügt dem section#tasks Element für jede Aufgabe einen neuen Absatz im folgenden Format hinzu:
+
+`<id>) <title>`
