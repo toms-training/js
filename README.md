@@ -50,3 +50,25 @@ addTaskToDOM() fügt dem section#tasks Element für jede Aufgabe einen neuen Abs
 6. Nutze in dieser Klasse JavaDoc Kommentare.
 7. Passe die Klasse Task so an, dass nur noch der Titel über den Konstruktor mitgegeben wird. Die ID ist initial 0.
 8. Passe auch den restlischen Code an, der nun mit der TasksCollection arbeitet.
+
+### Übung 07
+1. Aufgaben in HTML so erstellen, dass diese
+	* zentriert dargestellt werden
+	* als einzelne LI-Elemente in einer UnorderedList (UL) aufgelistet werden
+	* einen Titel "Aufgaben" (H1) in einem Header-Element besitzen (wie gezeigt)
+	* ein Paragraph-Element mit passendem Hinweis **statt** der Liste anzeigen, wenn keine Aufgaben vorhanden sind
+2. Die HTML-Liste soll dynamisch mit Javascript erstellt werden (addTaskToDOM() wird nicht mehr benötigt). 
+   Dafür wird folgendes benötigt:
+	* Eine Klasse ListGenerator mit folgenden Methoden und Eigenschaften:
+		* static #listElement
+		* static #messageElement
+		* static #addListItem(item)
+		* static generateList(items)
+	* Eine Klasse ListItem
+    <br>Tipp: Wie lässt sich der Code so ändern, dass man dynamische Listen später auch für andere Objekte, als die Aufgaben, nutzen könnte? 
+    <br>Stichwort: _DRY_
+3. Die Klasse Task bleibt bestehen (Tipp: an Vererbung denken)
+4. Die Klasse TaskCollection bleibt ebenso bestehen und wird wie folgt angepasst:
+	* get tasks()
+		* Code wird so optimiert, dass der Inhalt aus dem SessionStorage in ein Array mit Task-Objekten gemappt wird
+5. getTaskFromUser() und die While-Schleife bleiben bestehen
