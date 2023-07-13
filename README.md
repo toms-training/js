@@ -37,3 +37,6 @@ addTaskToDOM() fügt dem section#tasks Element für jede Aufgabe einen neuen Abs
 2. taskTemplate wird nicht mehr benötigt und kann entfernt werden
 3. Konstruktorfunktion stattdessen einsetzen
 4. tasks-Array und Funktionen "typsicherer" über JavaDoc Kommentare machen
+
+### Übung 05
+1. Wandle die Konstruktorfunktion in eine Klasse um.
