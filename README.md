@@ -40,3 +40,13 @@ addTaskToDOM() fügt dem section#tasks Element für jede Aufgabe einen neuen Abs
 
 ### Übung 05
 1. Wandle die Konstruktorfunktion in eine Klasse um.
+
+### Übung 06
+1. Erstelle eine Klasse TasksCollection als Repository für die Aufgaben.
+2. Füge der Klasse ein privates Feld hinzu, dass vom Typ Array, die Tasks speichert.
+3. Schreibe anschließend eine Getter-Funktion, die dieses Array zurück gibt.
+4. Ergänze die Klasse um eine Schnittstellenmethode addTask(), der ein Task übergeben wird und der dann den bestehenden Tasks hinzugefügt wird.
+5. Die Methode generiert eine neue ID, die eindeutig sein muss. Nutze hierfür die reduce() Funktion des Arrays.
+6. Nutze in dieser Klasse JavaDoc Kommentare.
+7. Passe die Klasse Task so an, dass nur noch der Titel über den Konstruktor mitgegeben wird. Die ID ist initial 0.
+8. Passe auch den restlischen Code an, der nun mit der TasksCollection arbeitet.
