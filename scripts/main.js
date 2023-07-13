@@ -1,17 +1,67 @@
 const taskSectionId = 'tasks';
 
-class TasksCollection {
+// #region Classes
+
+class ListGenerator {
+    static #listElement = document.getElementById('list');
+    static #messageElement = document.getElementById('list-message');
+
     /**
-     * @type {Array<Task>}
+     * Add an item to HTML list element
+     * @param {ListItem} item 
      */
-    #tasks = [];
+    static #addListItem(item) {
+        const itemElement = document.createElement('li');
+        itemElement.textContent = item;
+        this.#listElement.appendChild(itemElement);
+    }
+
+    /**
+     * Generate HTML list with list items
+     * @param {Array<ListItem>} items 
+     */
+    static generateList(items) {
+        if (items.length === 0) {
+            this.#messageElement.textContent = 'Keine Aufgaben vorhanden :)';
+            return;
+        }
+        
+        this.#messageElement.textContent = '';
+        this.#listElement.innerHTML = '';
+        
+        items.forEach(item => this.#addListItem(item));
+    }
+}
+
+class ListItem {
+    id = 0;
+
+    constructor(title) {
+        this.title = title;
+    }
+
+    toString() {
+        return `${this.id}) ${this.title}`;
+    }
+}
+
+class TasksCollection {
+    #tasksKey = 'task';
 
     /**
      * Returns all tasks
      * @returns {Array<Task>} an array with tasks
      */
     get tasks() {
-        return this.#tasks;
+        const storedTasks = JSON.parse(sessionStorage.getItem(this.#tasksKey)) || [];
+        const mappedTasks = storedTasks.map(taskItem => {
+            const task = new Task(taskItem.title);
+            task.id = taskItem.id;
+
+            return task;
+        });
+
+        return mappedTasks;
     }
 
     /**
@@ -19,36 +69,28 @@ class TasksCollection {
      * @param {Task} task 
      */
     addTask(task) {
-        const upperId = this.tasks.reduce(
+        const storedTasks = this.tasks;
+
+        const upperId = storedTasks.reduce(
             (previous, current) => current.id > previous ? current.id : previous, 
             0
         );
 
         task.id = upperId + 1;
-        this.#tasks.push(task);
+        
+        storedTasks.push(task);
+
+        sessionStorage.setItem(this.#tasksKey, JSON.stringify(storedTasks));
     }
 }
 
-class Task {
-    #id = 0;
-    #title = '';
+class Task extends ListItem {
     
-    constructor(title) {
-        this.#title = title;
-    }
-
-    get title() {
-        return this.#title;
-    }
-
-    get id() {
-        return this.#id;
-    }
-
-    set id(id) {
-        this.#id = id;
-    }
 }
+
+// #endregion
+
+const tasksCollection = new TasksCollection;
 
 /**
  * Asks user for a new task
@@ -64,23 +106,6 @@ function getTaskFromUser() {
     return task;
 }
 
-/**
- * Adds a task to the DOM.
- * @param {Task} task 
- */
-function addTaskToDOM(task) {
-    const section = document.getElementById(taskSectionId);
-    const paragraph = document.createElement('p');
-
-    paragraph.innerText = `${task.id}) ${task.title}`;
-
-    if (!section) throw new Error(`Element mit der ID ${taskSectionId} nicht gefunden`);
-
-    section.appendChild(paragraph);
-}
-
-const tasksCollection = new TasksCollection;
-
 let newTask = getTaskFromUser();
 
 while (newTask !== null) {
@@ -88,4 +113,4 @@ while (newTask !== null) {
     newTask = getTaskFromUser();
 }
 
-tasksCollection.tasks.forEach(addTaskToDOM);
+ListGenerator.generateList(tasksCollection.tasks);
