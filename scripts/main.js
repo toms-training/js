@@ -1,16 +1,52 @@
-/**
- * @type {Array<Task>}
- */
-const tasks = [];
 const taskSectionId = 'tasks';
 
+class TasksCollection {
+    /**
+     * @type {Array<Task>}
+     */
+    #tasks = [];
+
+    /**
+     * Returns all tasks
+     * @returns {Array<Task>} an array with tasks
+     */
+    get tasks() {
+        return this.#tasks;
+    }
+
+    /**
+     * Adds a new task to collection
+     * @param {Task} task 
+     */
+    addTask(task) {
+        const upperId = this.tasks.reduce(
+            (previous, current) => current.id > previous ? current.id : previous, 
+            0
+        );
+
+        task.id = upperId + 1;
+        this.#tasks.push(task);
+    }
+}
+
 class Task {
-    id = 0;
-    title = '';
+    #id = 0;
+    #title = '';
     
-    constructor(id, title) {
-        this.id = id,
-        this.title = title;
+    constructor(title) {
+        this.#title = title;
+    }
+
+    get title() {
+        return this.#title;
+    }
+
+    get id() {
+        return this.#id;
+    }
+
+    set id(id) {
+        this.#id = id;
     }
 }
 
@@ -23,8 +59,7 @@ function getTaskFromUser() {
 
     if (input === null || input.length === 0) return null;
 
-    const id = tasks.length + 1;
-    let task = new Task(id, input);
+    let task = new Task(input);
 
     return task;
 }
@@ -44,11 +79,13 @@ function addTaskToDOM(task) {
     section.appendChild(paragraph);
 }
 
+const tasksCollection = new TasksCollection;
+
 let newTask = getTaskFromUser();
 
 while (newTask !== null) {
-    tasks.push(newTask);
+    tasksCollection.addTask(newTask);
     newTask = getTaskFromUser();
 }
 
-tasks.forEach(addTaskToDOM);
+tasksCollection.tasks.forEach(addTaskToDOM);
