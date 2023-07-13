@@ -5,9 +5,12 @@ const tasks = [];
 const taskSectionId = 'tasks';
 
 class Task {
+    id = 0;
+    title = '';
+    
     constructor(id, title) {
-        this.#id = id,
-        this.#title = title;
+        this.id = id,
+        this.title = title;
     }
 }
 
