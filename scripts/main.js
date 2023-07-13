@@ -4,9 +4,11 @@
 const tasks = [];
 const taskSectionId = 'tasks';
 
-function Task(id, title) {
-    this.id = id,
-    this.title = title
+class Task {
+    constructor(id, title) {
+        this.#id = id,
+        this.#title = title;
+    }
 }
 
 /**
@@ -18,10 +20,8 @@ function getTaskFromUser() {
 
     if (input === null || input.length === 0) return null;
 
+    const id = tasks.length + 1;
     let task = new Task(id, input);
-
-    task.id = tasks.length + 1;
-    task.title = input;
 
     return task;
 }
