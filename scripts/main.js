@@ -1,17 +1,24 @@
+/**
+ * @type {Array<Task>}
+ */
 const tasks = [];
 const taskSectionId = 'tasks';
 
-const taskTemplate = {
-    id: 0,
-    title: ''
+function Task(id, title) {
+    this.id = id,
+    this.title = title
 }
 
+/**
+ * Asks user for a new task
+ * @returns Task
+ */
 function getTaskFromUser() {
     const input = prompt('Titel der Aufgabe: ');
 
     if (input === null || input.length === 0) return null;
 
-    let task = Object.create(taskTemplate);
+    let task = new Task(id, input);
 
     task.id = tasks.length + 1;
     task.title = input;
@@ -19,6 +26,10 @@ function getTaskFromUser() {
     return task;
 }
 
+/**
+ * Adds a task to the DOM.
+ * @param {Task} task 
+ */
 function addTaskToDOM(task) {
     const section = document.getElementById(taskSectionId);
     const paragraph = document.createElement('p');
