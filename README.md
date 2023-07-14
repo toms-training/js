@@ -105,3 +105,46 @@ addTaskToDOM() fügt dem section#tasks Element für jede Aufgabe einen neuen Abs
 4. Starte das NPM-Script
 5. Verteile die unterschiedlichen Klassen auf einzelne ES-Module und passe den Code entsprechend an
 6. Teste die Anwendung und behebe ggf. alle Fehler
+
+### Übung 11
+Für diese Übung soll es ein Formular für das Erstellen einer neuen Aufgabe geben.
+Das Formular, als auch die Liste werden dabei dynamisch (codeseitig) über HTML-Vorlagen in das MAIN-Element in der index.html geladen.
+
+#### Neuerungen
+
+* Das Formular
+    * Wird als _**form.html**_ im Ordner _**templates**_ abgelegt.
+    * Besitzt sowohl einen grünen Speichern-, als auch einen roten Abbrechen-Button.
+    * Der Benutzer kann ENTER drücken oder Speichern anklicken, um die Aufgabe zu speichern.
+    * Das Feld für die Aufgabenbeschreibung (Titel) soll
+        * einen Platzhalter "Aufgabenbeschreibung" gesetzt bekommen
+        * erforderlich sein
+    * Nach dem Speichern oder Abbrechen wird die Aufgabenliste erneut geladen.
+    * Bindet eine eigene Stylesheet-Datei _**form.css**_ aus dem Ordner _**styles**_ ein.
+    * Speichern ist ausgegraut, so lang das Eingabefeld ungültig ist.
+* Die Liste
+    * Wird als _**list.html**_ im Ordner _**templates**_ abgelegt.
+    * Die **section#tasks-wrapper** wird dahin verschoben
+* Eine Funktion _**loadList()**_ lädt das Template für die Liste in das MAIN-Element:
+    * HTML aus dem Template wird eingebunden
+    * Eine neue Instanz für **TaskListGenerator** wird erstellt
+    * Der EventListener für den Hinzufügen-Button wird registriert
+    * EventListener für die Aktionen _**done**_ und _**delete**_ werden im _**TaskListGenerator.listElement**_ registriert
+    * Die Liste wird generiert
+* Eine Funktion _**loadForm()**_ lädt das Template für das Formular in das MAIN-Element:
+    * HTML aus dem Template wird eingebunden
+    * Der Submit-Event für das Formular wird registriert:
+    * Es soll verhindert werden, dass das Formular tatsächlich abgeschickt wird
+    * Der EventListener wird als anonyme Funktion registriert und
+      * führt die _**addTask()**_ Funktion aus
+      * nutzt den Inhalt des Eingabefeldes im Konstruktor der Klasse **Task**
+    * Der Reset-Event für das Formular wird registriert und führt _**loadList()**_ aus
+
+
+#### Änderungen 
+
+* Das MAIN-Element in der _**index.html**_ enthält keine statischen Kindelemente mehr.
+* **ListGenerator** und **TaskListGenerator** sind nicht mehr statisch.
+* _**init()**_ ruft nur noch _**loadList()**_ auf
+* _**addTask()**_ ruft _**loadList()**_ statt _**TaskListGenerator.generateList()**_ auf
+* _**deleteTask()**_ und _**toggleDoneTask()**_ benötigen nun eine Instanz von **TaskListGenerator**
