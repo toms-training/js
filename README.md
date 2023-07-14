@@ -148,3 +148,30 @@ Das Formular, als auch die Liste werden dabei dynamisch (codeseitig) über HTML-
 * _**init()**_ ruft nur noch _**loadList()**_ auf
 * _**addTask()**_ ruft _**loadList()**_ statt _**TaskListGenerator.generateList()**_ auf
 * _**deleteTask()**_ und _**toggleDoneTask()**_ benötigen nun eine Instanz von **TaskListGenerator**
+
+### Übung 12
+Die Aufgaben-App soll nun als SPA-Anwendung (Single Page Application) realisiert werden.
+Dabei soll bei Aufruf des Formulars in der Adressleiste des Browsers _**/form**_ angezeigt werden und beim zurück navigieren im Browser soll
+der Benutzer wieder auf die Liste kommen (Single Page Navigation).
+
+## Neuerungen ##
+* Eine Funktion _**showPage()**_ übernimmt das Aktualisieren des **pushState**, des Dokumenten Titels und das Laden der HTML-Vorlage
+  * Bekommt den Namen der Seite und ein Boolean, ob **pushState** geändert werden soll, als Parameter übergeben
+  * Ist der Name der Seite nicht angegeben wird standardmäßig die Liste geladen
+  * Eine weitere mögliche Seite ist das Formular
+  * Ändert den Titel entsprechend
+    * Für die Liste: Aufgabenverwaltung
+    * Für das Formular: Aufgabe hinzufügen
+  * Ruft zum Schluss loadList() oder loadForm() auf
+
+
+## Änderungen ##
+* init()
+  * Ersetzt in der Historie des Browser den aktuellen Eintrag mit dem Eintrag "list"
+  * Registriert den Event "popstate" und führt in einem anonymen EventListener die Funktion showPage() aus
+* loadList()
+  * Registriert showPage('form'), statt loadForm() für den addTaskButton Click-Event.
+* loadForm()
+  * Registriert showPage('list'), statt loadList() für den Reset-Event des Formulars.
+* addTask()
+  * Ruft showPage('list'), statt loadList() auf
