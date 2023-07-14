@@ -87,3 +87,13 @@ addTaskToDOM() fügt dem section#tasks Element für jede Aufgabe einen neuen Abs
 	* Die while-Schleife wird nicht mehr benötigt
 	* Für die ListItem-Elemente eine CSS-Klasse "list-item" verwenden
 	* Bei der Löschfunktion an das Event-Bubbling und die Eigenschaft "id" der Task-Objekte denken
+
+### Übung 09
+1. Aufgaben sollen als erledigt markiert werden können
+2. Erledigte Aufgaben sollen nach den noch zu erledigenden Aufgaben angezeigt werden
+   <br>--> Auch schon, sobald eine Aufgabe als erledigt markiert wird (rutscht nach unten)
+3. Erledigte Aufgaben werden durchgestrichen angezeigt
+4. Tipps:
+	* Darauf achten, dass die Aufgaben aus der letzten Übung vorab im SessionStorage gelöscht sind/werden
+	* Da Task um eine neue Eigenschaft erweitert wird, braucht es jetzt auch einen TaskListGenerator, der das ganze behandeln kann
+	  <br>--> Vererbung nicht vergessen!
