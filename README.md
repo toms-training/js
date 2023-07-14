@@ -60,8 +60,8 @@ addTaskToDOM() fügt dem section#tasks Element für jede Aufgabe einen neuen Abs
 2. Die HTML-Liste soll dynamisch mit Javascript erstellt werden (addTaskToDOM() wird nicht mehr benötigt). 
    Dafür wird folgendes benötigt:
 	* Eine Klasse ListGenerator mit folgenden Methoden und Eigenschaften:
-		* static #listElement
-		* static #messageElement
+		* static #listElement (hier wird das LI-Element gespeichert)
+		* static #messageElement (hier wird das P-Element für den Hinweis gespeichert.)
 		* static #addListItem(item)
 		* static generateList(items)
 	* Eine Klasse ListItem
@@ -72,3 +72,18 @@ addTaskToDOM() fügt dem section#tasks Element für jede Aufgabe einen neuen Abs
 	* get tasks()
 		* Code wird so optimiert, dass der Inhalt aus dem SessionStorage in ein Array mit Task-Objekten gemappt wird
 5. getTaskFromUser() und die While-Schleife bleiben bestehen
+
+### Übung 08
+1. Über einen Button soll nun eine Aufgabe hinzugefügt werden können
+2. Jede Aufgabe kann vom Benutzer einzeln gelöscht werden
+3. Dafür müssen sowohl die Klasse ListGenerator, als auch die Klasse TasksCollection angepasst werden
+4. Eine Funktion init() soll folgendes tun:
+	* Registriert den EventListener für den onclick-Event für den Hinzufügen-Button 
+	* Registriert den EventListener für den onclick-Event der späteren Löschen-Buttons der einzelnen Aufgaben
+	* Erstellt die Aufgabenliste
+5. Ein EventListener für den DOMContentLoaded-Event von document führt die init() Funktion aus
+6. Tipps:
+	* getTaskFromUser() bleibt unverändert
+	* Die while-Schleife wird nicht mehr benötigt
+	* Für die ListItem-Elemente eine CSS-Klasse "list-item" verwenden
+	* Bei der Löschfunktion an das Event-Bubbling und die Eigenschaft "id" der Task-Objekte denken
