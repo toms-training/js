@@ -1,18 +1,53 @@
 @import url(reset.css);
 
+body {
+    font-size: 16px;
+}
+
 .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 2rem;
-    width: 80%;
     height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.content {
+    width: 100%;
+}
+
+.btn {
+    height: 48px;
+    line-height: 48px;
+    font-size: 32px;
+    border-radius: 5px;
+    border-width: 0;
+    cursor: pointer;
+    padding: 0 10px;
+    text-align: center;
+}
+
+.btn.btn-icon {
+    padding: 0;
+    height: 48px;
+    width: 48px;
+    border-radius: 48px;
+    line-height: 48px;
+}
+
+.btn.btn-icon-small {
+    padding: 0;
+    height: 32px;
+    width: 32px;
+    border-radius: 32px;
+    line-height: 32px;
+    font-size: 16px;
 }
 
 .app-title {
     font-size: 2.5em;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
     padding: 0.8em;
 }
@@ -28,10 +63,60 @@
     overflow: auto;
     max-height: 30em;
     margin-top: 25px;
+    width: calc(100% - 2.4em)
 }
 
-.list li {
+.list .list-item {
     padding: 0.8em;
     font-size: 1.5em;
     display: flex;
+    align-items: center;
+}
+
+.list .list-item:nth-child(even) {
+    background-color: #ddd;
+}
+
+.list-message {
+    font-size: 2rem;
+    height: 4rem;
+    line-height: 4rem;
+    padding: 25px;
+}
+
+.nav-btn {
+    background: lightseagreen;
+    color: #222;
+}
+
+.nav-btn:hover {
+    background: lightgreen;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.list .list-item .item-actions {
+    position: relative;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.list .list-item .item-title {
+    width: 100%;
+}
+
+.item-action-delete {
+    background-color: #c33939;
+    color: white;
+}
+
+.item-action-delete:hover {
+    background-color: #c339399f;
 }
