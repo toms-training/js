@@ -3,58 +3,80 @@ import { TaskListGenerator, Task, TasksCollection } from "./tasks/index.js";
 const tasksCollection = new TasksCollection;
 
 function init() {
-    const addTaskButton = document.querySelector('input[type="button"].add-task');
-    addTaskButton.addEventListener('click', addTask);
-
-    
-    TaskListGenerator.subscribeDelete(deleteTask);
-    TaskListGenerator.subscribeDone(toggleDoneTask)
-
-    TaskListGenerator.generateList(tasksCollection.tasks);
+    loadList();
 }
 
 document.addEventListener('DOMContentLoaded', init);
 
-/**
- * Asks user for a new task
- * @returns Task
- */
-function getTaskFromUser() {
-    const input = prompt('Titel der Aufgabe: ');
+function loadList() {
+    fetch('templates/list.html')
+        .then((resp) => resp.text())
+        .then((html) => {
+            const main = document.getElementsByTagName('main')[0];
+            main.innerHTML = html;
 
-    if (input === null || input.length === 0) return null;
+            const taskListGenerator = new TaskListGenerator();
+            const addTaskButton = document.querySelector('input[type="button"].add-task');
+            addTaskButton?.addEventListener('click', loadForm);
 
-    let task = new Task(input);
+            taskListGenerator.listElement?.addEventListener('click', deleteTask);
+            taskListGenerator.listElement?.addEventListener('click', toggleDoneTask);
 
-    return task;
+            taskListGenerator.generateList(tasksCollection.tasks);
+        });
 }
 
-function addTask() {
-    const newTask = getTaskFromUser();
-    
-    if (!newTask) return;
+function loadForm() {
+    fetch('templates/form.html')
+        .then((resp) => resp.text())
+        .then((html) => {
+            const main = document.getElementsByTagName('main')[0];
+            main.innerHTML = html;
 
-    tasksCollection.addTask(newTask);
+            /**
+             * @type {HTMLFormElement}
+             */
+            const form = document.forms.newTask;
 
-    TaskListGenerator.generateList(tasksCollection.tasks);
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                addTask(new Task(form.taskTitle.value));
+            });
+
+            form.addEventListener('reset', loadList);
+        });
+}
+
+//#region Event Handler
+
+function addTask(task) {
+    if (!task) return;
+
+    tasksCollection.addTask(task);
+
+    loadList();
 }
 
 function deleteTask(event) {
     const target = event.target;
+    const taskListGenerator = new TaskListGenerator();
 
     if (!target.classList.contains('item-action-delete')) return;
 
-    const id = TaskListGenerator.stringToId(target.id);
+    const id = taskListGenerator.stringToId(target.id);
     tasksCollection.deleteTask(id);
-    TaskListGenerator.generateList(tasksCollection.tasks);
+    taskListGenerator.generateList(tasksCollection.tasks);
 }
 
 function toggleDoneTask(event) {
     const target = event.target;
+    const taskListGenerator = new TaskListGenerator();
     
     if (!target.classList.contains('item-action-done')) return;
 
-    const id = TaskListGenerator.stringToId(target.dataset.taskid);
+    const id = taskListGenerator.stringToId(target.dataset.taskid);
     tasksCollection.toggleDone(id);
-    TaskListGenerator.generateList(tasksCollection.tasks);
+    taskListGenerator.generateList(tasksCollection.tasks);
 }
+
+//#endregion

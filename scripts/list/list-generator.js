@@ -1,12 +1,16 @@
+import { ListItem } from './list-item.js';
+
 export class ListGenerator {
-    static listElement = document.getElementById('list');
-    static messageElement = document.getElementById('list-message');
+    listElement = document.getElementById('list');
+    messageElement = document.getElementById('list-message');
 
     /**
      * Generate HTML list with list items
-     * @param {Array<ListItem>} items 
+     * @param {Array<ListItem>} items
      */
-    static generateList(items) {
+    generateList(items) {
+        if (!this.messageElement || !this.listElement) return;
+
         this.messageElement.textContent = '';
         this.listElement.innerHTML = '';
 
@@ -15,38 +19,38 @@ export class ListGenerator {
             this.messageElement.textContent = 'Keine Aufgaben vorhanden :)';
             return;
         }
-        
+
         this.messageElement.style.display = 'none';
-        items.forEach(item => this.addListItem(item));
+        items.forEach((item) => this.addListItem(item));
     }
 
-    static idToString(id) {
+    idToString(id) {
         return `item-${id}`;
     }
 
-    static stringToId(string) {
+    stringToId(string) {
         return parseInt(string.replace('item-', ''));
     }
 
-    static subscribeDelete(subscriber) {
-        this.listElement.addEventListener('click', subscriber);
+    subscribeDelete(subscriber) {
+        this.listElement?.addEventListener('click', subscriber);
     }
 
     /**
      * Add an item to HTML list element
-     * @param {ListItem} item 
+     * @param {ListItem} item
      */
-    static addListItem(item) {
+    addListItem(item) {
         const itemElement = document.createElement('li');
         itemElement.classList.add('list-item');
 
         itemElement.appendChild(this.getListItemTitleElement(item.title));
         itemElement.appendChild(this.getListItemActionsElement(item.id));
-        
-        this.listElement.appendChild(itemElement);
+
+        this.listElement?.appendChild(itemElement);
     }
 
-    static getListItemTitleElement(title) {
+    getListItemTitleElement(title) {
         const titleSpan = document.createElement('span');
         titleSpan.classList.add('item-title');
         titleSpan.textContent = title;
@@ -54,22 +58,22 @@ export class ListGenerator {
         return titleSpan;
     }
 
-    static getListItemActionsElement(itemId) {
+    getListItemActionsElement(itemId) {
         const actionSpan = document.createElement('span');
         actionSpan.classList.add('item-actions');
 
         actionSpan.appendChild(this.getDeleteActionElement(itemId));
-    
+
         return actionSpan;
     }
 
-    static getDeleteActionElement(id) {
+    getDeleteActionElement(id) {
         const deleteButton = document.createElement('span');
         deleteButton.id = this.idToString(id);
         deleteButton.classList.add('btn', 'btn-icon-small', 'item-action', 'item-action-delete');
         deleteButton.innerHTML = 'X';
         deleteButton.title = 'Aufgabe löschen';
-    
+
         return deleteButton;
     }
 }

@@ -1,0 +1,30 @@
+form[name='newTask'] {
+    font-size: 1.2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: auto;
+}
+
+form[name='newTask'] .form-group {
+    padding: 0.5em 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+form[name='newTask'] input[type=text] {
+    border: 1px solid #666;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    padding: 1em;
+    min-width: 300px;
+}
+
+form[name='newTask'] input[type="submit"] {
+    background: lightgreen;
+}
+
+form[name='newTask'] input[type="reset"] {
+    background: lightsalmon;
+}
