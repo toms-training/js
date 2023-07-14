@@ -3,10 +3,35 @@ import { TaskListGenerator, Task, TasksCollection } from "./tasks/index.js";
 const tasksCollection = new TasksCollection;
 
 function init() {
+    window.history.replaceState('list', document.title, document.location);
+    window.addEventListener('popstate', (event) => {
+        showPage(event.state, false);
+
+        return true;
+    });
+
     loadList();
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+function showPage(page, pushState = true) {
+    let pageTitle = '';
+
+    switch (page) {
+        case 'form':
+            pageTitle = 'Aufgabe hinzufügen';
+            if (pushState) window.history.pushState('form', pageTitle, '/form');
+            document.title = pageTitle;
+            loadForm();
+            break;
+        default:
+            pageTitle = 'Aufgabenverwaltung';
+            if (pushState) window.history.pushState('list', pageTitle, '/');
+            document.title = pageTitle;
+            loadList();
+    }
+}
 
 function loadList() {
     fetch('templates/list.html')
@@ -17,7 +42,7 @@ function loadList() {
 
             const taskListGenerator = new TaskListGenerator();
             const addTaskButton = document.querySelector('input[type="button"].add-task');
-            addTaskButton?.addEventListener('click', loadForm);
+            addTaskButton?.addEventListener('click', () => showPage('form'));
 
             taskListGenerator.listElement?.addEventListener('click', deleteTask);
             taskListGenerator.listElement?.addEventListener('click', toggleDoneTask);
@@ -43,7 +68,7 @@ function loadForm() {
                 addTask(new Task(form.taskTitle.value));
             });
 
-            form.addEventListener('reset', loadList);
+            form.addEventListener('reset', () => showPage('list'));
         });
 }
 
@@ -54,7 +79,7 @@ function addTask(task) {
 
     tasksCollection.addTask(task);
 
-    loadList();
+    showPage('list');
 }
 
 function deleteTask(event) {
