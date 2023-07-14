@@ -97,3 +97,11 @@ addTaskToDOM() fügt dem section#tasks Element für jede Aufgabe einen neuen Abs
 	* Darauf achten, dass die Aufgaben aus der letzten Übung vorab im SessionStorage gelöscht sind/werden
 	* Da Task um eine neue Eigenschaft erweitert wird, braucht es jetzt auch einen TaskListGenerator, der das ganze behandeln kann
 	  <br>--> Vererbung nicht vergessen!
+
+### Übung 10
+1. Initialisiere das Projekt für NPM
+2. Installiere das NPM-Paket **lite-server** als _**devDependency**_
+3. Füge der _**packag.json**_ ein NPM **start**-Script hinzu, dass den lite-server ausführt
+4. Starte das NPM-Script
+5. Verteile die unterschiedlichen Klassen auf einzelne ES-Module und passe den Code entsprechend an
+6. Teste die Anwendung und behebe ggf. alle Fehler
