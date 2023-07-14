@@ -100,6 +100,10 @@ body {
     justify-content: space-around;
 }
 
+.item-action {
+    margin-left: 10px;
+}
+
 .list .list-item .item-actions {
     position: relative;
     right: 0;
@@ -119,4 +123,17 @@ body {
 
 .item-action-delete:hover {
     background-color: #c339399f;
+}
+
+.list .list-item .item-done {
+    text-decoration: line-through;
+}
+
+.item-action-done {
+    background-color: #0e8914;
+    color: white;
+}
+
+.item-action-done:hover {
+    background-color: #0e8914a3;
 }
